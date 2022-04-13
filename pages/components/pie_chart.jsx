@@ -6,7 +6,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 export default function PieChartComponent ({ data }) {
   return (
     <Pie
-      data={data}
+      data={data.chart_data}
     />
   )
 }

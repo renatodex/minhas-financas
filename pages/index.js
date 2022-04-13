@@ -1,5 +1,7 @@
 import PieChart from './components/pie_chart'
-import randomColor from "randomcolor";
+// import randomColor from "randomcolor";
+// console.log(Array.from({length: 6}, (_) => randomColor()))
+import { useCallback, useEffect, useState } from 'react';
 
 export function Button () {
   return (
@@ -24,18 +26,31 @@ export function MonthlySummary ({ data }) {
 }
 
 export default function Index() {
-  let data = {
+  const [monthlySummaries, setMonthlySummaries] = useState([])
+
+  const data = {
     labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
     datasets: [
       {
         label: '# of Votes',
         data: [12, 19, 3, 5, 2, 3],
-        backgroundColor: Array.from({length: 6}, (_) => randomColor()),
+        backgroundColor: ['#e0cf60', '#4cce71', '#7be845', '#1f577c', '#7ce285', '#18f2b0'],
         borderWidth: 1,
       },
     ],
   }
 
+  useEffect(() => {
+    const load = async function () {
+      const result = await fetch('/api/monthly_summaries')
+      const resultJson = await result.json()
+      setMonthlySummaries(resultJson.data)
+    }
+
+    load()
+  }, [])
+
+  console.log('Summaries', monthlySummaries)
   return (
     <div className="p-10 border-2 ">
       <h1 className="text-5xl font-bold font-serif text-gray-600">
@@ -60,10 +75,11 @@ export default function Index() {
         </h1>
 
         <div className="grid grid-cols-2 py-6 gap-11">
-          <MonthlySummary data={data} />
-          <MonthlySummary data={data} />
-          <MonthlySummary data={data} />
-          <MonthlySummary data={data} />
+          {monthlySummaries.map(monthlySummary => (
+            <div key={monthlySummary.id}>
+              <MonthlySummary data={monthlySummary} />
+            </div>
+          ))}
         </div>
       </div>
     </div>
