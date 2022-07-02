@@ -1,29 +1,8 @@
-import PieChart from './components/pie_chart'
 // import randomColor from "randomcolor";
 // console.log(Array.from({length: 6}, (_) => randomColor()))
 import { useCallback, useEffect, useState } from 'react';
-
-export function Button () {
-  return (
-    <div>
-      <button className="bg-slate-400 text-black px-3 py-1.5 rounded">Adicionar</button>
-    </div>
-  )
-}
-
-export function MonthlySummary ({ data }) {
-  return (
-    <div className="bg-gray-100 text-gray-900 p-10 rounded-xl">
-      <h2 className="text-2xl font-bold text-blue-800">
-        Março 2022 / <span className="text-gray-900">R$ 5023,29</span>
-
-        <div className="w-96 mt-5">
-          <PieChart data={data} />
-        </div>
-      </h2>
-    </div>
-  )
-}
+import MonthlySummary from './components/monthly_summary';
+import SourceUpload from './components/source_upload';
 
 export default function Index() {
   const [monthlySummaries, setMonthlySummaries] = useState([])
@@ -33,7 +12,7 @@ export default function Index() {
     datasets: [
       {
         label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
+        data: [1200, 1900, 300, 500, 200, 300],
         backgroundColor: ['#e0cf60', '#4cce71', '#7be845', '#1f577c', '#7ce285', '#18f2b0'],
         borderWidth: 1,
       },
@@ -50,24 +29,37 @@ export default function Index() {
     load()
   }, [])
 
-  console.log('Summaries', monthlySummaries)
+  const handleSourceCreation = async function ({ event, selectedFile }) {
+    console.log('Selectedfile', selectedFile)
+
+    // Create an object of formData
+    const formData = new FormData();
+
+    // Update the formData object
+    formData.append(
+      "selectedFile",
+      selectedFile,
+      selectedFile.name ,
+    );
+
+    const response = await fetch('/api/monthly_summaries/create', {
+      method: 'POST',
+      headers: {
+        // 'Content-Type': 'application/json'
+        'Content-Type': 'multipart/form-data',
+      },
+      body: formData
+    });
+
+  }
+
   return (
     <div className="p-10 border-2 ">
       <h1 className="text-5xl font-bold font-serif text-gray-600">
         Minhas Finanças
       </h1>
 
-      <div className="bg-gray-700 text-white mt-5 p-5 rounded-xl">
-        <p className="text-lg font-semibold">Upload do Extrato Nubank:</p>
-
-        <div className="mt-4">
-          <input type="file" />
-        </div>
-
-        <div className="mt-4">
-          <Button />
-        </div>
-      </div>
+      <SourceUpload onSubmit={e => handleSourceCreation(e)} />
 
       <div className="border-t-2 mt-9 pt-5">
         <h1 className="text-2xl font-bold font-serif text-gray-700">

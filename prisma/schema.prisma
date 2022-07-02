@@ -1,0 +1,39 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model MonthlySummary {
+  id               Int      @id @default(autoincrement())
+  month            Int
+  year             Int
+  total            Float    @default(0)
+  monthly_entries  MonthlyEntry[]
+  created_at          DateTime  @default(now())
+  updated_at          DateTime  @default(now())
+
+  @@map("monthly_summaries")
+  @@unique([month, year])
+}
+
+model MonthlyEntry {
+  id                  Int    @id @default(autoincrement())
+  description         String
+  category            String          @default("uncategorized")
+  amount              Float
+  monthly_summary_id  Int
+  monthly_summary     MonthlySummary  @relation(fields: [monthly_summary_id], references: [id])
+  source              String          @default("")
+  transactioned_at    DateTime
+  created_at          DateTime        @default(now())
+  updated_at          DateTime        @default(now())
+
+  @@map("monthly_entries")
+}

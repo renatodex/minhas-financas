@@ -3,10 +3,10 @@ import { Pie } from 'react-chartjs-2';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export default function PieChartComponent ({ data }) {
+export default function PieChartComponent ({ chart_data }) {
   return (
     <Pie
-      data={data.chart_data}
+      data={chart_data}
     />
   )
 }
