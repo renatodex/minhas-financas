@@ -1,8 +1,14 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Minhas Finanças
 
-## Getting Started
+Essa é uma aplicação criada para gerenciar minha finanças pessoais. A idéia é ser capaz de processar extratos gerados por bancos e instituições de pagamento Brasileiras, como Nubank e Itau.
 
-First, run the development server:
+![](https://user-images.githubusercontent.com/68507/177015943-7e523db3-3b47-44d9-bfbc-fda8bd88dc1d.png)
+
+## Rodando o servidor
+
+A aplicação é basicamente um servidor NextJS com algumas APIs que usam o Prisma para fazer consultas de banco de dados.
+
+Para rodar o servidor, basta seguir as instruções de qualquer aplicação NextJS.
 
 ```bash
 npm run dev
@@ -10,25 +16,17 @@ npm run dev
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abre [http://localhost:3000](http://localhost:3000) para ver os resultado.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Saiba mais
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+Para saber mais sobre os componentes utilizados nessaa aplicação, consulte suas páginas oficiais
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- [Next.js](https://nextjs.org/docs).
+- [Prisma](https://www.prisma.io/).
 
-## Learn More
+## Deploy na Vercel
 
-To learn more about Next.js, take a look at the following resources:
+A forma mais rápida de subir essa aplicação é através da [Plataforma Vercel](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) feita pelos criadores do NextJS.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Para resolver a parte de Banco de dados, recomendamos que você utilize uma solução na núvem de Banco de dados como o **RDS da Amazon** ou o **Google Cloud**.
